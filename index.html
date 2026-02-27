@@ -13,74 +13,109 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* 🔥 METALLIC BLACK BACKGROUND */
 body{
-    background: radial-gradient(circle at top, #111827, #020617);
-    color:white;
-    text-align:center;
     min-height:100vh;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
+    background:
+        radial-gradient(circle at 20% 20%, #2a2a2a, transparent 40%),
+        radial-gradient(circle at 80% 80%, #1a1a1a, transparent 40%),
+        linear-gradient(135deg,#000000,#0d0d0d,#000000);
+    color:white;
 }
 
-/* card */
+/* 💎 CARD */
 .container{
     width:95%;
     max-width:380px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(12px);
-    border-radius:20px;
-    padding:30px 20px;
-    box-shadow:0 0 25px rgba(0,0,0,0.6);
-    animation:fadeIn 0.6s ease;
+    padding:34px 24px;
+    border-radius:24px;
+    background: linear-gradient(145deg,#111,#050505);
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.9),
+        inset 0 0 25px rgba(255,255,255,.03);
 }
 
-/* logo */
+/* ✨ GOLDEN SHINY BORDER */
+.container::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:24px;
+    background: linear-gradient(
+        120deg,
+        #d4af37,
+        #ffd700,
+        #fff2a6,
+        #ffd700,
+        #d4af37
+    );
+    background-size:300% 300%;
+    animation:goldBorder 5s linear infinite;
+    z-index:-1;
+}
+
+@keyframes goldBorder{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+/* LOGO */
 .logo{
     width:140px;
-    margin:auto;
     display:block;
-    filter: drop-shadow(0 0 8px rgba(255,215,0,0.6));
+    margin:auto;
+    filter: drop-shadow(0 0 16px rgba(255,215,0,.7));
 }
 
-/* heading */
+/* ✨ GOLD TEXT */
 h2{
-    margin:18px 0 25px;
-    letter-spacing:3px;
-    background: linear-gradient(45deg,#FFD700,#f59e0b);
+    margin:18px 0 24px;
+    letter-spacing:4px;
+    font-weight:700;
+    background: linear-gradient(90deg,#d4af37,#ffd700,#fff2a6,#ffd700,#d4af37);
+    background-size:200% auto;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
+    animation:shine 3s linear infinite;
 }
 
-/* buttons */
+@keyframes shine{
+    to{background-position:200% center;}
+}
+
+/* BUTTON */
 .btn{
     display:block;
     width:100%;
-    margin:10px auto;
     padding:14px;
+    margin:11px 0;
     border:none;
-    border-radius:12px;
+    border-radius:14px;
     font-size:16px;
-    font-weight:bold;
+    font-weight:600;
+    color:white;
     cursor:pointer;
-    transition:0.25s;
+    transition:.25s;
 }
 
 .btn:hover{
-    transform:scale(1.05);
+    transform:translateY(-3px) scale(1.05);
 }
 
-/* colors */
-.call{background:#22c55e;color:white;}
-.whatsapp{background:#25D366;color:white;}
-.location{background:#3b82f6;color:white;}
-.save{background:#f59e0b;color:white;}
-.qrbtn{background:#a855f7;color:white;}
+/* COLORS */
+.call{background:linear-gradient(135deg,#22c55e,#15803d);}
+.whatsapp{background:linear-gradient(135deg,#25D366,#128C7E);}
+.location{background:linear-gradient(135deg,#3b82f6,#1d4ed8);}
+.save{background:linear-gradient(135deg,#d4af37,#b8962e);}
+.qrbtn{background:linear-gradient(135deg,#444,#222);}
 
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
-}
 </style>
 </head>
 
@@ -93,7 +128,7 @@ h2{
   <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ✅ NEW LOGO -->
+<!-- ✅ LOGO -->
 <img src="https://i.ibb.co/Xfjzjy1z/logo.png" class="logo" alt="VASUKI Logo">
 
 <h2>VASUKI</h2>
@@ -107,55 +142,46 @@ h2{
 </div>
 
 <script>
-
-// 🔊 sound
 function playClick(){
-    const audio = document.getElementById("clickSound");
-    audio.currentTime = 0;
-    audio.play();
+    const a=document.getElementById("clickSound");
+    a.currentTime=0;
+    a.play();
 }
 
-// 📞 call
 function callNow(){
     playClick();
-    window.location.href = "tel:+916377393721";
+    window.location.href="tel:+916377393721";
 }
 
-// 💬 whatsapp
 function openWhatsApp(){
     playClick();
     window.open("https://wa.me/916377393721","_blank");
 }
 
-// 📍 location (change if needed)
 function openLocation(){
     playClick();
     window.open("https://maps.google.com","_blank");
 }
 
-// 💾 save contact
 function saveContact(){
     playClick();
-
-    const vcard = `BEGIN:VCARD
+    const vcard=`BEGIN:VCARD
 VERSION:3.0
 FN:VASUKI
 TEL:+916377393721
 END:VCARD`;
 
-    const blob = new Blob([vcard], {type:"text/vcard"});
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "vasuki_contact.vcf";
+    const blob=new Blob([vcard],{type:"text/vcard"});
+    const link=document.createElement("a");
+    link.href=URL.createObjectURL(blob);
+    link.download="vasuki_contact.vcf";
     link.click();
 }
 
-// 🔳 QR placeholder
 function showQR(){
     playClick();
     alert("QR yaha add kar sakte ho 👍");
 }
-
 </script>
 
 </body>
