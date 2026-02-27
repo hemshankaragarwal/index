@@ -431,15 +431,192 @@ h2{
 <div class="container">
 
 ```
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VASUKI</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, #1f1f1f, transparent 40%),
+        radial-gradient(circle at 80% 80%, #2b2b2b, transparent 40%),
+        linear-gradient(135deg, #050505, #1a1a1a, #050505);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+}
+
+/* CARD */
+.container{
+    background: rgba(20,20,20,.88);
+    backdrop-filter: blur(14px);
+    padding:38px 28px;
+    border-radius:26px;
+    text-align:center;
+    width:340px;
+    border:1px solid rgba(212,175,55,.35);
+    box-shadow:0 25px 70px rgba(0,0,0,.85);
+}
+
+/* LOGO */
+.logo{
+    width:150px;
+    margin-bottom:14px;
+    filter:
+        drop-shadow(0 0 18px rgba(255,215,0,.6))
+        saturate(1.2);
+}
+
+/* TITLE */
+h2{
+    margin-bottom:24px;
+    letter-spacing:4px;
+    font-weight:700;
+    background: linear-gradient(90deg,#d4af37,#ffd700,#c5a028);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* BUTTON */
+.btn{
+    display:block;
+    width:100%;
+    padding:14px;
+    margin:12px 0;
+    font-size:16px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    color:white;
+    font-weight:600;
+    transition:.25s;
+}
+
+.call{background:linear-gradient(135deg,#28a745,#1e7e34)}
+.whatsapp{background:linear-gradient(135deg,#25D366,#128C7E)}
+.location{background:linear-gradient(135deg,#007bff,#0056b3)}
+.save{background:linear-gradient(135deg,#d4af37,#b8962e)}
+.qrbtn{background:linear-gradient(135deg,#444,#222)}
+
+.btn:hover{
+    transform:translateY(-3px) scale(1.04);
+}
+
+/* QR POPUP */
+.qr-popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.qr-box{
+    background:#111;
+    padding:20px;
+    border-radius:18px;
+    text-align:center;
+    border:1px solid rgba(212,175,55,.4);
+}
+
+.qr-box img{
+    width:180px;
+}
+
+.close{
+    margin-top:10px;
+    padding:8px 14px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<!-- ✅ GOLDEN LOGO -->
 <img src="https://i.ibb.co/d4XkxXkg/logo.png" class="logo" alt="VASUKI Logo">
+
 <h2>VASUKI</h2>
 
-<button class="btn call" onclick="playClick();callNow()">📞 Call Now</button>
-<button class="btn whatsapp" onclick="playClick();openWhatsApp()">💬 WhatsApp</button>
-<button class="btn location" onclick="playClick();openLocation()">📍 Location</button>
-<button class="btn save" onclick="playClick();saveContact()">💾 Save Contact</button>
-<button class="btn qrbtn" onclick="playClick();showQR()">🔳 Show QR</button>
-<button class="btn install" id="installBtn" style="display:none;">📲 Install App</button>
+<button class="btn call" onclick="callNow()">📞 Call Now</button>
+<button class="btn whatsapp" onclick="openWhatsApp()">💬 WhatsApp</button>
+<button class="btn location" onclick="openLocation()">📍 Location</button>
+<button class="btn save" onclick="saveContact()">💾 Save Contact</button>
+<button class="btn qrbtn" onclick="showQR()">🔳 Show QR</button>
+```
+
+</div>
+
+<!-- QR POPUP -->
+
+<div class="qr-popup" id="qrPopup">
+  <div class="qr-box">
+      <img src="qr.png" alt="QR Code">
+      <br>
+      <button class="close" onclick="hideQR()">Close</button>
+  </div>
+</div>
+
+<script>
+function callNow(){
+    window.location.href="tel:+916377393721";
+}
+
+function openWhatsApp(){
+    window.location.href="https://wa.me/916377393721";
+}
+
+function openLocation(){
+    window.location.href="https://maps.google.com";
+}
+
+/* SAVE CONTACT */
+function saveContact(){
+const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Vasuki
+TEL:+916377393721
+EMAIL:contact@vasuki.in
+END:VCARD`;
+
+const blob = new Blob([vcard], { type: "text/vcard" });
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement("a");
+a.href = url;
+a.download = "vasuki.vcf";
+a.click();
+}
+
+/* QR */
+function showQR(){
+    document.getElementById("qrPopup").style.display="flex";
+}
+function hideQR(){
+    document.getElementById("qrPopup").style.display="none";
+}
+</script>
+
+</body>
+</html>
+
 ```
 
 </div>
@@ -620,5 +797,6 @@ function hideQR(){
 
 </body>
 </html>
+
 
 
