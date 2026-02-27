@@ -6,121 +6,105 @@
 <title>VASUKI</title>
 
 <style>
-*{
-    box-sizing: border-box;
-}
+*{box-sizing:border-box}
 
-body {
+body{
     font-family: Arial, sans-serif;
     background:
         radial-gradient(circle at 20% 20%, #1f1f1f, transparent 40%),
         radial-gradient(circle at 80% 80%, #2b2b2b, transparent 40%),
         linear-gradient(135deg, #050505, #1a1a1a, #050505);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
 }
 
-/* 🔥 Premium Visiting Card */
-.container {
-    background: rgba(255,255,255,0.06);
+/* CARD */
+.container{
+    background: rgba(20,20,20,.85);
     backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    padding: 32px 26px;
-    border-radius: 22px;
-    text-align: center;
-    width: 320px;
-    border: 1px solid rgba(255,255,255,0.12);
-    box-shadow:
-        0 10px 40px rgba(0,0,0,0.7),
-        inset 0 0 20px rgba(255,255,255,0.04);
-    position: relative;
-    overflow: hidden;
+    padding:38px 28px;
+    border-radius:26px;
+    text-align:center;
+    width:340px;
+    border:1px solid rgba(212,175,55,.35);
+    box-shadow:0 25px 70px rgba(0,0,0,.85);
+    position:relative;
 }
 
-/* subtle shine */
-.container::before{
-    content:"";
-    position:absolute;
-    top:-120%;
-    left:-40%;
-    width:180%;
-    height:200%;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,0.08),
-        transparent
-    );
-    transform: rotate(25deg);
-    animation: shine 6s linear infinite;
+/* LOGO */
+.logo{
+    width:140px;
+    margin-bottom:14px;
+    filter:drop-shadow(0 0 18px rgba(255,215,0,.6));
 }
 
-@keyframes shine{
-    0%{ top:-120%; }
-    100%{ top:120%; }
-}
-
-/* logo */
-.logo {
-    width: 120px;
-    margin-bottom: 12px;
-}
-
-/* golden brand text */
-h2 {
-    margin-bottom: 22px;
-    letter-spacing: 3px;
-    font-weight: 700;
+/* TITLE */
+h2{
+    margin-bottom:24px;
+    letter-spacing:4px;
+    font-weight:700;
     background: linear-gradient(90deg,#d4af37,#ffd700,#c5a028);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
-/* buttons */
-.btn {
-    display: block;
-    width: 100%;
-    padding: 13px;
-    margin: 12px 0;
-    font-size: 16px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    color: white;
-    transition: 0.25s ease;
-    font-weight: 600;
-    letter-spacing: .5px;
+/* BUTTON */
+.btn{
+    display:block;
+    width:100%;
+    padding:14px;
+    margin:12px 0;
+    font-size:16px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    color:white;
+    font-weight:600;
+    transition:.25s;
 }
 
-/* button colors */
-.call {
-    background: linear-gradient(135deg,#28a745,#1e7e34);
+.call{background:linear-gradient(135deg,#28a745,#1e7e34)}
+.whatsapp{background:linear-gradient(135deg,#25D366,#128C7E)}
+.location{background:linear-gradient(135deg,#007bff,#0056b3)}
+.save{background:linear-gradient(135deg,#d4af37,#b8962e)}
+.qrbtn{background:linear-gradient(135deg,#444,#222)}
+
+.btn:hover{
+    transform:translateY(-3px) scale(1.04);
 }
 
-.whatsapp {
-    background: linear-gradient(135deg,#25D366,#128C7E);
+/* QR POPUP */
+.qr-popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
 }
 
-.location {
-    background: linear-gradient(135deg,#007bff,#0056b3);
+.qr-box{
+    background:#111;
+    padding:20px;
+    border-radius:18px;
+    text-align:center;
+    border:1px solid rgba(212,175,55,.4);
 }
 
-/* hover */
-.btn:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    opacity: .95;
+.qr-box img{
+    width:180px;
 }
 
-/* mobile */
-@media (max-width:420px){
-    .container{
-        width:90%;
-        padding:28px 20px;
-    }
+.close{
+    margin-top:10px;
+    padding:8px 14px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
 }
 </style>
 </head>
@@ -129,27 +113,283 @@ h2 {
 
 <div class="container">
 
-    <img src="https://i.ibb.co/pjFKQ8Rw/logo.jpeg" alt="VASUKI Logo" class="logo">
+   <!DOCTYPE html>
 
-    <h2>VASUKI</h2>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VASUKI</title>
 
-    <button class="btn call" onclick="callNow()">📞 Call Now</button>
-    <button class="btn whatsapp" onclick="openWhatsApp()">💬 WhatsApp</button>
-    <button class="btn location" onclick="openLocation()">📍 Location</button>
+<!-- PWA meta -->
+
+<meta name="theme-color" content="#0b0b0b">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, #1f1f1f, transparent 40%),
+        radial-gradient(circle at 80% 80%, #2b2b2b, transparent 40%),
+        linear-gradient(135deg, #050505, #1a1a1a, #050505);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* CARD */
+.container{
+    background: rgba(20,20,20,.88);
+    backdrop-filter: blur(16px);
+    padding:42px 28px;
+    border-radius:28px;
+    text-align:center;
+    width:340px;
+    border:1px solid rgba(212,175,55,.35);
+    box-shadow:0 30px 80px rgba(0,0,0,.9);
+    position:relative;
+    overflow:hidden;
+}
+
+/* GOLD SHINE */
+.container::before{
+    content:"";
+    position:absolute;
+    top:-150%;
+    left:-40%;
+    width:180%;
+    height:200%;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,215,0,.15),
+        transparent
+    );
+    transform:rotate(25deg);
+    animation:shine 5s linear infinite;
+}
+
+@keyframes shine{
+    0%{top:-150%}
+    100%{top:150%}
+}
+
+/* LOGO */
+.logo{
+    width:150px;
+    margin-bottom:14px;
+    filter:
+        drop-shadow(0 0 20px rgba(255,215,0,.65))
+        saturate(1.25)
+        contrast(1.1);
+}
+
+/* TITLE */
+h2{
+    margin-bottom:26px;
+    letter-spacing:4px;
+    font-weight:700;
+    background: linear-gradient(90deg,#d4af37,#ffd700,#c5a028);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* BUTTON */
+.btn{
+    display:block;
+    width:100%;
+    padding:15px;
+    margin:12px 0;
+    font-size:16px;
+    border:none;
+    border-radius:16px;
+    cursor:pointer;
+    color:white;
+    font-weight:600;
+    transition:.25s;
+}
+
+.call{background:linear-gradient(135deg,#28a745,#1e7e34)}
+.whatsapp{background:linear-gradient(135deg,#25D366,#128C7E)}
+.location{background:linear-gradient(135deg,#007bff,#0056b3)}
+.save{background:linear-gradient(135deg,#d4af37,#b8962e)}
+.qrbtn{background:linear-gradient(135deg,#444,#222)}
+
+.btn:hover{
+    transform:translateY(-3px) scale(1.05);
+}
+
+/* QR POPUP */
+.qr-popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.qr-box{
+    background:#111;
+    padding:24px;
+    border-radius:20px;
+    text-align:center;
+    border:1px solid rgba(212,175,55,.45);
+}
+
+.qr-box img{
+    width:190px;
+}
+
+.close{
+    margin-top:14px;
+    padding:9px 18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#d4af37;
+    color:#000;
+    font-weight:700;
+}
+
+/* MOBILE */
+@media(max-width:420px){
+    .container{
+        width:92%;
+        padding:36px 22px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<img src="https://i.ibb.co/d4XkxXkg/logo.png" class="logo" alt="VASUKI Logo">
+
+<h2>VASUKI</h2>
+
+<button class="btn call" onclick="callNow()">📞 Call Now</button>
+<button class="btn whatsapp" onclick="openWhatsApp()">💬 WhatsApp</button>
+<button class="btn location" onclick="openLocation()">📍 Location</button>
+<button class="btn save" onclick="saveContact()">💾 Save Contact</button>
+<button class="btn qrbtn" onclick="showQR()">🔳 Show QR</button>
+```
 
 </div>
 
+<!-- QR POPUP -->
+
+<div class="qr-popup" id="qrPopup">
+  <div class="qr-box">
+      <img src="qr.png" alt="QR Code">
+      <br>
+      <button class="close" onclick="hideQR()">Close</button>
+  </div>
+</div>
+
 <script>
-function callNow() {
-    window.location.href = "tel:+916377393721";
+function callNow(){
+    window.location.href="tel:+916377393721";
 }
 
-function openWhatsApp() {
-    window.location.href = "https://wa.me/916377393721";
+function openWhatsApp(){
+    window.location.href="https://wa.me/916377393721";
 }
 
-function openLocation() {
-    window.location.href = "https://maps.google.com";
+/* 👉 apna real map link yaha paste karna */
+function openLocation(){
+    window.location.href="https://maps.google.com/?q=Jaipur";
+}
+
+function saveContact(){
+const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Vasuki
+TEL:+916377393721
+EMAIL:contact@vasuki.in
+END:VCARD`;
+
+const blob = new Blob([vcard], { type: "text/vcard" });
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement("a");
+a.href = url;
+a.download = "vasuki.vcf";
+a.click();
+}
+
+function showQR(){
+    document.getElementById("qrPopup").style.display="flex";
+}
+function hideQR(){
+    document.getElementById("qrPopup").style.display="none";
+}
+</script>
+
+</body>
+</html>
+
+
+</div>
+
+<!-- QR POPUP -->
+<div class="qr-popup" id="qrPopup">
+  <div class="qr-box">
+      <img src="qr.png" alt="QR">
+      <br>
+      <button class="close" onclick="hideQR()">Close</button>
+  </div>
+</div>
+
+<script>
+function callNow(){
+    window.location.href="tel:+916377393721";
+}
+
+function openWhatsApp(){
+    window.location.href="https://wa.me/916377393721";
+}
+
+function openLocation(){
+    window.location.href="https://maps.google.com";
+}
+
+/* SAVE CONTACT */
+function saveContact(){
+const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Vasuki
+TEL:+916377393721
+EMAIL:contact@vasuki.in
+END:VCARD`;
+
+const blob = new Blob([vcard], { type: "text/vcard" });
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement("a");
+a.href = url;
+a.download = "vasuki.vcf";
+a.click();
+}
+
+/* QR */
+function showQR(){
+    document.getElementById("qrPopup").style.display="flex";
+}
+function hideQR(){
+    document.getElementById("qrPopup").style.display="none";
 }
 </script>
 
