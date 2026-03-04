@@ -10,92 +10,107 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
-/* 🌌 PREMIUM ANIMATED BACKGROUND */
+/* ===== PREMIUM BACKGROUND ===== */
 body{
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
+    background:
+        radial-gradient(circle at 20% 20%, #111 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, #111 0%, transparent 40%),
+        linear-gradient(135deg,#040404,#0a0a0a,#040404);
+    color:#fff;
     overflow:hidden;
-    color:white;
     position:relative;
-    background:#000;
 }
 
+/* moving ambient light */
 body::before{
     content:"";
     position:absolute;
-    width:200%;
-    height:200%;
-    background:
-        radial-gradient(circle at 30% 30%, #ffd70022, transparent 40%),
-        radial-gradient(circle at 70% 70%, #9333ea33, transparent 40%),
-        radial-gradient(circle at 50% 80%, #3b82f622, transparent 40%);
-    animation:moveLight 18s linear infinite alternate;
+    width:700px;
+    height:700px;
+    background:radial-gradient(circle, rgba(255,215,0,0.08), transparent 70%);
+    filter:blur(40px);
+    animation:ambientMove 12s ease-in-out infinite alternate;
 }
 
-@keyframes moveLight{
-    0%{transform:translate(-10%,-10%)}
-    100%{transform:translate(10%,10%)}
+@keyframes ambientMove{
+    from{ transform:translate(-80px,-60px); }
+    to{ transform:translate(80px,60px); }
 }
 
-/* 💎 GLASS CARD */
+/* ===== CARD ===== */
 .container{
-    width:95%;
-    max-width:380px;
-    padding:36px 25px;
-    border-radius:28px;
-    background:rgba(20,20,20,0.65);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+    width:92%;
+    max-width:360px;
+    padding:36px 26px;
+    border-radius:26px;
     text-align:center;
     position:relative;
-    box-shadow:0 25px 60px rgba(0,0,0,0.8);
-    border:1px solid rgba(255,215,0,0.3);
+
+    background:rgba(20,20,20,0.92);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,215,0,0.28);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.9),
+        inset 0 1px 0 rgba(255,255,255,.05);
 }
 
-/* LOGO */
+/* ===== LOGO ===== */
 .logo{
-    width:130px;
-    margin:auto;
+    width:120px;
     display:block;
-    filter:drop-shadow(0 0 12px rgba(255,215,0,.6));
+    margin:0 auto 14px;
 }
 
-/* TITLE */
+/* ===== TITLE ===== */
 h2{
-    margin:20px 0 28px;
     letter-spacing:4px;
-    font-weight:700;
+    font-weight:600;
+    margin-bottom:24px;
     color:#ffd700;
 }
 
-/* BUTTON */
+.online{
+    display:inline-block;
+    width:8px;
+    height:8px;
+    background:#22c55e;
+    border-radius:50%;
+    margin-left:6px;
+    box-shadow:0 0 8px #22c55e;
+}
+
+/* ===== BUTTON ===== */
 .btn{
     display:block;
     width:100%;
     padding:14px;
-    margin:12px 0;
-    border:none;
+    margin:10px 0;
     border-radius:14px;
-    font-size:16px;
+    font-size:15.5px;
     font-weight:600;
-    color:white;
+    border:none;
+    color:#fff;
     cursor:pointer;
-    transition:.3s;
+    transition:.22s ease;
 }
 
-.btn:hover{ transform:translateY(-4px); }
-.btn:active{ transform:scale(.97); }
+.btn:hover{
+    transform:translateY(-2px);
+}
 
-/* BUTTON COLORS */
 .call{background:linear-gradient(135deg,#16a34a,#065f46);}
 .whatsapp{background:linear-gradient(135deg,#25D366,#128C7E);}
 .location{background:linear-gradient(135deg,#2563eb,#1e3a8a);}
-.website{background:linear-gradient(135deg,#9333ea,#5b21b6);}
+.website{background:linear-gradient(135deg,#7c3aed,#5b21b6);}
 .save{background:linear-gradient(135deg,#ffd700,#b8860b);color:#000;}
 
 </style>
@@ -106,7 +121,7 @@ h2{
 <div class="container">
 
 <img src="https://i.ibb.co/Xfjzjy1z/logo.png" class="logo" alt="VASUKI Logo">
-<h2>VASUKI</h2>
+<h2>VASUKI <span class="online"></span></h2>
 
 <button class="btn call" onclick="callNow()">📞 Call Now</button>
 <button class="btn whatsapp" onclick="openWhatsApp()">💬 WhatsApp</button>
@@ -118,45 +133,49 @@ h2{
 
 <script>
 
-/* 📞 CALL */
+/* CALL */
 function callNow(){
     window.location.href="tel:+916377393721";
 }
 
-/* 💬 WHATSAPP (NORMAL + BUSINESS BOTH) */
+/* WHATSAPP NORMAL + BUSINESS */
 function openWhatsApp(){
-    const phone = "916377393721";
-    const message = "Hello VASUKI";
-
-    const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+    const phone="916377393721";
+    const message="Hello VASUKI";
+    const url=`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+    window.open(url,"_blank");
 }
 
-/* 📍 EXACT LOCATION */
+/* GOOGLE MAP LOCATION */
 function openLocation(){
     window.open("https://www.google.com/maps?q=26.878861,75.872833","_blank");
 }
 
-/* 🌐 WEBSITE */
+/* WEBSITE (UPDATED) */
 function openWebsite(){
-    window.open("https://yourwebsite.com","_blank");
+    window.open("https://merry-smakager-3702a1.netlify.app/","_blank");
 }
 
-/* ⭐ SAVE CONTACT */
+/* DIRECT CONTACT SAVE */
 function saveContact(){
+
 const vcard=`BEGIN:VCARD
 VERSION:3.0
 FN:VASUKI
-TEL:+916377393721
+ORG:VASUKI
+TEL;TYPE=CELL:+916377393721
+URL:https://merry-smakager-3702a1.netlify.app/
 END:VCARD`;
 
-const blob=new Blob([vcard],{type:"text/vcard"});
-const url=window.URL.createObjectURL(blob);
+const blob=new Blob([vcard],{type:"text/vcard;charset=utf-8"});
+const url=URL.createObjectURL(blob);
 
-const a=document.createElement("a");
-a.href=url;
-a.download="VASUKI.vcf";
-a.click();
+const link=document.createElement("a");
+link.href=url;
+link.download="VASUKI_Contact.vcf";
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
 }
 
 </script>
